@@ -1,0 +1,26 @@
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Lending-Pool
+    network: arbitrum-one
+    source:
+      address: "0x794a61358D6845594F94dc1DB02A252b5b4814aD"
+      abi: Lending-Pool
+      startBlock: 7742429
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Upgraded
+      abis:
+        - name: Lending-Pool
+          file: ./abis/Lending-Pool.json
+      eventHandlers:
+        - event: Upgraded(indexed address)
+          handler: handleUpgraded
+      file: ./src/lending-pool.ts
