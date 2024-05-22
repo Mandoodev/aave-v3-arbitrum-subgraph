@@ -17,10 +17,119 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - Upgraded
+        - Block
+        - User
+        - Token
+        - UserToken
+        - UserTokenList
+        - UserTokenSnapshot
+        - Reserve
+        - GlobalCounter
       abis:
         - name: Lending-Pool
           file: ./abis/Lending-Pool.json
       eventHandlers:
         - event: Upgraded(indexed address)
           handler: handleUpgraded
+        - event: Supply(indexed address,address,indexed address,uint256,indexed uint16)
+          handler: handleSupply
+        - event: Withdraw(indexed address,indexed address,indexed address,uint256)
+          handler: handleWithdraw
+        - event: Borrow(indexed address,address,indexed address,uint256,uint8,uint256,indexed uint16)
+          handler: handleBorrow
+        - event: Repay(indexed address,indexed address,indexed address,uint256,bool)
+          handler: handleRepay
+        - event: LiquidationCall(indexed address,indexed address,indexed address,uint256,uint256,address,bool)
+          handler: handleLiquidationCall
+        - event: ReserveDataUpdated(indexed address,uint256,uint256,uint256,uint256,uint256)
+          handler: handleReserveDataUpdated
+      blockHandlers:
+        - handler: handleBlock
       file: ./src/lending-pool.ts
+
+  - kind: ethereum
+    name: aArbWETH
+    network: arbitrum-one
+    source:
+      address: "0xe50fA9b3c56FfB159cB0FCA61F5c9D750e8128c8"
+      abi: aArbWETH
+      startBlock: 7742579
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - aArbWETHUpgraded
+        - User
+        - Token
+        - UserToken
+        - UserTokenList
+        - UserTokenSnapshot
+        - GlobalCounter
+      abis:
+        - name: aArbWETH
+          file: ./abis/aArbWETH.json
+      eventHandlers:
+        - event: Upgraded(indexed address)
+          handler: handleUpgraded
+        - event: BalanceTransfer(indexed address,indexed address,uint256,uint256)
+          handler: handleBalanceTransferWETH
+      file: ./src/a-arb-weth.ts
+
+  - kind: ethereum
+    name: aArbUSDC
+    network: arbitrum-one
+    source:
+      address: "0x625E7708f30cA75bfd92586e17077590C60eb4cD"
+      abi: aArbUSDC
+      startBlock: 7742576
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - aArbUSDCUpgraded
+        - User
+        - Token
+        - UserToken
+        - UserTokenList
+        - UserTokenSnapshot
+        - GlobalCounter
+      abis:
+        - name: aArbUSDC
+          file: ./abis/aArbUSDC.json
+      eventHandlers:
+        - event: Upgraded(indexed address)
+          handler: handleUpgraded
+        - event: BalanceTransfer(indexed address,indexed address,uint256,uint256)
+          handler: handleBalanceTransferUSDC
+      file: ./src/a-arb-usdc.ts
+
+  - kind: ethereum
+    name: aArbUSDT
+    network: arbitrum-one
+    source:
+      address: "0x6ab707Aca953eDAeFBc4fD23bA73294241490620"
+      abi: aArbUSDT
+      startBlock: 7742579
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - aArbUSDTUpgraded
+        - User
+        - Token
+        - UserToken
+        - UserTokenList
+        - UserTokenSnapshot
+        - GlobalCounter
+      abis:
+        - name: aArbUSDT
+          file: ./abis/aArbUSDT.json
+      eventHandlers:
+        - event: Upgraded(indexed address)
+          handler: handleUpgraded
+        - event: BalanceTransfer(indexed address,indexed address,uint256,uint256)
+          handler: handleBalanceTransferUSDT          
+      file: ./src/a-arb-usdt.ts

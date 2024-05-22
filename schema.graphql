@@ -5,3 +5,87 @@ type Upgraded @entity(immutable: true) {
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
+type aArbWETHUpgraded @entity(immutable: true) {
+  id: Bytes!
+  implementation: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+type aArbUSDCUpgraded @entity(immutable: true) {
+  id: Bytes!
+  implementation: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+type aArbUSDTUpgraded @entity(immutable: true) {
+  id: Bytes!
+  implementation: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Block @entity {
+  id: ID!
+  number: BigInt!
+  timestamp: BigInt!
+}
+
+type User @entity {
+  id: ID!
+  tokens: [UserToken!]! @derivedFrom(field: "user")
+}
+
+type Token @entity {
+  id: ID! # Token address as ID
+  address: Bytes!
+  symbol: String
+  decimals: Int
+}
+
+type UserToken @entity {
+  id: ID!
+  user: User!
+  token: Token!
+  totalSupplied: BigInt!
+  totalBorrowed: BigInt!
+  netSupplied: BigInt!
+  lastUpdated: BigInt!   
+  index: Int! 
+}
+
+type UserTokenList @entity {
+  id: ID! #UserToken.index
+  userTokenId: String!
+}
+
+type UserTokenSnapshot @entity {
+  id: ID!
+  userToken: UserToken!
+  event: String!
+  totalSupplied: BigInt!
+  totalBorrowed: BigInt!
+  netSupplied: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+}
+
+type GlobalCounter @entity {
+  id: ID!
+  userTokenIndexCounter: Int!
+}
+
+type Reserve @entity {
+  id: ID!
+  address: Bytes!
+  symbol: String
+  decimals: Int
+  liquidityRate: BigInt!
+  stableBorrowRate: BigInt!
+  variableBorrowRate: BigInt!
+  liquidityIndex: BigInt!
+  variableBorrowIndex: BigInt!
+  lastUpdateTimestamp: BigInt!
+}
