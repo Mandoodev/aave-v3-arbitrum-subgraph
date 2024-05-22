@@ -4,6 +4,7 @@
 **Overview**
 
 This subgraph aims to track the net supplied amount of users on Aave V3 Arbitrum.
+https://api.studio.thegraph.com/query/75401/aave-v3-arbitrum-project/version/latest
 
 **Key Features**
 
